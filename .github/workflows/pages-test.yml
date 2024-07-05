@@ -1,0 +1,29 @@
+name: Cube Monitor
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+
+  deploy:
+    name: Deploy result
+    needs: monitor
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    steps:
+      - name: Output report TEST
+        run: mkdir -p out; echo '<h1>TEST<h1><p>a test report</p>' > out/index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        id: upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'out'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
