@@ -9,7 +9,6 @@ jobs:
 
   deploy:
     name: Deploy result
-    needs: monitor
     runs-on: ubuntu-latest
     permissions:
       pages: write      # to deploy to Pages
